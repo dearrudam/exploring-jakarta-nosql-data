@@ -13,7 +13,7 @@
  *    Maximillian Arruda
  */
 
-package org.eclipse.jnosql.demo.document.tck.couchbase;
+package org.eclipse.jnosql.demo.document.tck.mongodb;
 
 import org.eclipse.jnosql.communication.Settings;
 import org.eclipse.jnosql.databases.mongodb.communication.MongoDBDocumentConfiguration;
@@ -26,7 +26,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum MongoDatabase {
+public enum Database {
 
     INSTANCE;
 

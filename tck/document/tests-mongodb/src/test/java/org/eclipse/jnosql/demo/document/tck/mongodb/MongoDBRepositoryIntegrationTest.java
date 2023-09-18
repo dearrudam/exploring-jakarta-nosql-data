@@ -12,7 +12,7 @@
  *
  *    Maximillian Arruda
  */
-package org.eclipse.jnosql.demo.document.tck.couchbase;
+package org.eclipse.jnosql.demo.document.tck.mongodb;
 
 import org.eclipse.jnosql.databases.mongodb.communication.MongoDBDocumentConfigurations;
 import org.eclipse.jnosql.databases.mongodb.mapping.MongoDBTemplate;
@@ -20,14 +20,14 @@ import org.eclipse.jnosql.demo.document.tck.repository.PageableRepositoryIntegra
 import org.eclipse.jnosql.mapping.config.MappingConfigurations;
 import org.jboss.weld.junit5.auto.AddPackages;
 
-import static org.eclipse.jnosql.demo.document.tck.couchbase.MongoDatabase.INSTANCE;
 
 @AddPackages(MongoDBTemplate.class)
 public class MongoDBRepositoryIntegrationTest implements PageableRepositoryIntegrationTest {
 
     static {
-        INSTANCE.get("library");
-        System.setProperty(MongoDBDocumentConfigurations.HOST.get() + ".1", INSTANCE.host());
+        var instance = Database.INSTANCE;
+        instance.get("library");
+        System.setProperty(MongoDBDocumentConfigurations.HOST.get() + ".1", instance.host());
         System.setProperty(MappingConfigurations.DOCUMENT_DATABASE.get(), "library");
     }
 }
