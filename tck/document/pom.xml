@@ -27,6 +27,7 @@
         <module>model</module>
         <module>tests</module>
         <module>tests-mongodb</module>
+        <module>tests-couchbase</module>
     </modules>
     <dependencyManagement>
         <dependencies>
