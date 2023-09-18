@@ -26,6 +26,7 @@
     <modules>
         <module>model</module>
         <module>tests</module>
+        <module>tests-mongodb</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -39,6 +40,13 @@
             <dependency>
                 <groupId>org.eclipse.jnosql.demo</groupId>
                 <artifactId>exploring-jnosql-tck-document-model</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.jnosql.demo</groupId>
+                <artifactId>exploring-jnosql-tck-document-tests</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
