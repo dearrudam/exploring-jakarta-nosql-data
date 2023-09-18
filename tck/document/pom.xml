@@ -17,15 +17,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.eclipse.jnosql.demo</groupId>
-        <artifactId>exploring-jnosql</artifactId>
+        <artifactId>exploring-jnosql-tck</artifactId>
         <version>1.0.1</version>
     </parent>
-    <artifactId>exploring-jnosql-tck</artifactId>
+    <artifactId>exploring-jnosql-tck-document</artifactId>
     <packaging>pom</packaging>
-    <name>Exploring JNoSQL - TCK</name>
+    <name>Exploring JNoSQL - TCK - Document</name>
 
-    <modules>
-        <module>document</module>
-    </modules>
-    
+
 </project>
