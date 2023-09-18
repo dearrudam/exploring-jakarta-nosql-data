@@ -1,16 +1,17 @@
 /*
- *    Copyright (c) 2023 Contributors to the Eclipse Foundation
- *    All rights reserved. This program and the accompanying materials
- *    are made available under the terms of the Eclipse Public License v1.0
- *    and Apache License v2.0 which accompanies this distribution.
- *    The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
- *    and the Apache License v2.0 is available at http://www.opensource.org/licenses/apache2.0.php.
+ * Copyright (c) 2023 Contributors to the Eclipse Foundation
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * and Apache License v2.0 which accompanies this distribution.
+ * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+ * and the Apache License v2.0 is available at http://www.opensource.org/licenses/apache2.0.php.
  *
- *    You may elect to redistribute this code under either of these licenses.
+ * You may elect to redistribute this code under either of these licenses.
  *
- *    Contributors:
+ * Contributors:
  *
- *    Maximillian Arruda
+ * Maximillian Arruda
+ *
  */
 
 package org.eclipse.jnosql.demo.document.tck.couchbase;
@@ -45,6 +46,7 @@ public enum Database {
 
     INSTANCE;
 
+    public static final String COUCHBASE_IMAGE_NAME = "couchbase/server";
     private CouchbaseContainer container;
     private CouchbaseSettings settings;
     private final BucketDefinition bucketDefinition;
@@ -89,7 +91,7 @@ public enum Database {
         if (container != null && container.isRunning()) {
             return;
         }
-        container = new CouchbaseContainer("couchbase/server")
+        container = new CouchbaseContainer(COUCHBASE_IMAGE_NAME)
                 .withBucket(bucketDefinition)
                 .withCredentials(configuration.getUser(fileSettings), configuration.getPassword(fileSettings));
 
