@@ -33,6 +33,7 @@
     </properties>
 
     <modules>
+        <module>tck</module>
     </modules>
 
     <dependencyManagement>
