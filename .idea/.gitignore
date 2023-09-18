@@ -1,0 +1,6 @@
+*
+!.gitignore
+!/copyright/*.xml
+!/copyright
+!codeStyles
+!runConfigurations
