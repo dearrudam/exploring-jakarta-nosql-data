@@ -25,6 +25,26 @@
     <name>Exploring JNoSQL - TCK - Document</name>
     <modules>
         <module>model</module>
+        <module>tests</module>
     </modules>
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.eclipse.jnosql.mapping</groupId>
+                <artifactId>jnosql-mapping-document</artifactId>
+                <version>${jnosql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.jnosql.demo</groupId>
+                <artifactId>exploring-jnosql-tck-document-model</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
 
 </project>
