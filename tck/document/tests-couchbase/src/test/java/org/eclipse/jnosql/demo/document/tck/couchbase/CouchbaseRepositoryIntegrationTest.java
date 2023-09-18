@@ -25,8 +25,7 @@ import org.junit.jupiter.api.BeforeAll;
 @AddExtensions({CouchbaseExtension.class})
 public class CouchbaseRepositoryIntegrationTest implements PageableRepositoryIntegrationTest {
 
-    @BeforeAll
-    public static void beforeAll(){
+    static {
         CouchbaseUtil.systemPropertySetup();
     }
 

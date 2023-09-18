@@ -91,8 +91,7 @@ public enum Database {
         }
         container = new CouchbaseContainer("couchbase/server")
                 .withBucket(bucketDefinition)
-                .withCredentials(configuration.getUser(fileSettings), configuration.getPassword(fileSettings))
-                .withReuse(true);
+                .withCredentials(configuration.getUser(fileSettings), configuration.getPassword(fileSettings));
 
         container.start();
 
