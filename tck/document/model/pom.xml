@@ -1,16 +1,17 @@
 <!--
-  ~    Copyright (c) 2023 Contributors to the Eclipse Foundation
-  ~    All rights reserved. This program and the accompanying materials
-  ~    are made available under the terms of the Eclipse Public License v1.0
-  ~    and Apache License v2.0 which accompanies this distribution.
-  ~    The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
-  ~    and the Apache License v2.0 is available at http://www.opensource.org/licenses/apache2.0.php.
+  ~ Copyright (c) 2023 Contributors to the Eclipse Foundation
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the Eclipse Public License v1.0
+  ~ and Apache License v2.0 which accompanies this distribution.
+  ~ The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+  ~ and the Apache License v2.0 is available at http://www.opensource.org/licenses/apache2.0.php.
   ~
-  ~    You may elect to redistribute this code under either of these licenses.
+  ~ You may elect to redistribute this code under either of these licenses.
   ~
-  ~    Contributors:
+  ~ Contributors:
   ~
-  ~    Maximillian Arruda
+  ~ Maximillian Arruda
+  ~
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -18,17 +19,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.eclipse.jnosql.demo</groupId>
-        <artifactId>exploring-jnosql-tck-document</artifactId>
+        <artifactId>exploring-jakarta-nosql-data-tck-document</artifactId>
         <version>1.0.1</version>
     </parent>
-    <artifactId>exploring-jnosql-tck-document-model</artifactId>
+    <artifactId>exploring-jakarta-nosql-data-tck-document-model</artifactId>
     <packaging>jar</packaging>
-    <name>Exploring JNoSQL - TCK - Document - Model</name>
+    <name>Exploring Jakarta NoSQL + Jakarta Data - TCK - Document - Model</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.jnosql.mapping</groupId>
-            <artifactId>jnosql-mapping-document</artifactId>
+            <groupId>jakarta.data</groupId>
+            <artifactId>jakarta-data-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.nosql</groupId>
+            <artifactId>nosql-document</artifactId>
         </dependency>
     </dependencies>
 </project>
