@@ -16,57 +16,180 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.eclipse.jnosql</groupId>
-        <artifactId>jnosql-parent</artifactId>
-        <version>1.0.1</version>
-    </parent>
     <groupId>org.eclipse.jnosql.demo</groupId>
     <artifactId>exploring-jnosql</artifactId>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
     <name>Exploring JNoSQL</name>
-
-    <properties>
-        <jnosql.version>1.0.1</jnosql.version>
-        <weld.jupiter.version>4.0.0.Final</weld.jupiter.version>
-        <testcontainers.version>1.19.0</testcontainers.version>
-    </properties>
 
     <modules>
         <module>tck</module>
     </modules>
 
+    <properties>
+        <jnosql.version>1.0.2-SNAPSHOT</jnosql.version>
+        <apache-rat-plugin.version>0.15</apache-rat-plugin.version>
+        <jacoco.maven.version>0.8.10</jacoco.maven.version>
+        <jakarta.annotation.version>2.1.1</jakarta.annotation.version>
+        <jakarta.enterprise.cdi.version>4.0.1</jakarta.enterprise.cdi.version>
+        <jakarta.json.bind.version>3.0.0</jakarta.json.bind.version>
+        <jakarta.json.version>2.1.2</jakarta.json.version>
+        <jakarta.data.api.version>1.0.0-b3</jakarta.data.api.version>
+        <jakarta.nosql.version>1.0.0-b7</jakarta.nosql.version>
+        <jakarta.validation.version>3.0.2</jakarta.validation.version>
+        <maven-javadoc-plugin.vesion>3.4.1</maven-javadoc-plugin.vesion>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
+        <maven.compile.version>3.11.0</maven.compile.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonar.jacoco.reportPath>../target/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.maven.version>3.9.1.2184</sonar.maven.version>
+        <commons.io.version>2.13.0</commons.io.version>
+        <checkstyle.excludes>**/jnosql/query/grammar/**</checkstyle.excludes>
+        <weld.se.core.version>5.1.1.SP2</weld.se.core.version>
+        <yasson.version>3.0.3</yasson.version>
+        <microprofile.config.version>3.0.3</microprofile.config.version>
+        <smallrye.config.version>3.3.4</smallrye.config.version>
+
+        <checkstyle.version>10.12.0</checkstyle.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+
+        <!-- testing libraries -->
+        <weld.jupiter.version>4.0.0.Final</weld.jupiter.version>
+        <junit.version>5.10.0</junit.version>
+        <mockito.verson>5.5.0</mockito.verson>
+        <assertj.version>3.24.2</assertj.version>
+        <awaitility.version>4.2.0</awaitility.version>
+        <pi-test.version>1.12.0</pi-test.version>
+        <pitest-junit5-plugin.version>1.2.0</pitest-junit5-plugin.version>
+        <testcontainers.version>1.19.0</testcontainers.version>
+    </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>jakarta.json</groupId>
+                <artifactId>jakarta.json-api</artifactId>
+                <version>${jakarta.json.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.json.bind</groupId>
+                <artifactId>jakarta.json.bind-api</artifactId>
+                <version>${jakarta.json.bind.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.annotation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>${jakarta.enterprise.cdi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${jakarta.validation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.data</groupId>
+                <artifactId>jakarta-data-api</artifactId>
+                <version>${jakarta.data.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.verson}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.verson}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${awaitility.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.microprofile.config</groupId>
+                <artifactId>microprofile-config-api</artifactId>
+                <version>${microprofile.config.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse</groupId>
+                <artifactId>yasson</artifactId>
+                <version>${yasson.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.smallrye.config</groupId>
+                <artifactId>smallrye-config</artifactId>
+                <version>${smallrye.config.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers</artifactId>
                 <version>${testcontainers.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
-
-    <repositories>
-        <repository>
-            <id>jakarta.sonatype.org-snapshot</id>
-            <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>oss.sonatype.org-snapshot</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.smallrye.config</groupId>
+            <artifactId>smallrye-config</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
