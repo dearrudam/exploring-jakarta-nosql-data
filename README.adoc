@@ -1,1 +1,2 @@
-== exploring-jnosql
+== Exploring Jakarta NoSQL + Jakarta Data - TCK
+
