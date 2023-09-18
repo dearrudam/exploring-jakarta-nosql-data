@@ -86,7 +86,7 @@ public enum Database {
     }
 
     public void start() {
-        if (container!=null && container.isRunning()) {
+        if (container != null && container.isRunning()) {
             return;
         }
         container = new CouchbaseContainer("tests-couchbase/server")
@@ -147,12 +147,11 @@ public enum Database {
             ScopeSpec spec = scopes.stream().filter(s -> finalScope.equals(s.name()))
                     .findFirst().get();
 
-            collectionsToIndex.stream()
-                    .forEach(collection -> {
-                        if (spec.collections().stream().noneMatch(c -> collectionsToIndex.contains(c.name()))) {
-                            manager.createCollection(CollectionSpec.create(collection, finalScope));
-                        }
-                    });
+            collectionsToIndex.forEach(collection -> {
+                if (spec.collections().stream().noneMatch(c -> collectionsToIndex.contains(c.name()))) {
+                    manager.createCollection(CollectionSpec.create(collection, finalScope));
+                }
+            });
 
             waitUntilReady(bucket);
 
