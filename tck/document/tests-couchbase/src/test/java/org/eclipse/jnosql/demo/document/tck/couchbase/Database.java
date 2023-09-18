@@ -89,7 +89,7 @@ public enum Database {
         if (container != null && container.isRunning()) {
             return;
         }
-        container = new CouchbaseContainer("tests-couchbase/server")
+        container = new CouchbaseContainer("couchbase/server")
                 .withBucket(bucketDefinition)
                 .withCredentials(configuration.getUser(fileSettings), configuration.getPassword(fileSettings))
                 .withReuse(true);
