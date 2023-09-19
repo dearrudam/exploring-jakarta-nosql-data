@@ -16,31 +16,13 @@
 
 package org.eclipse.jnosql.demo.document.tck.couchbase;
 
-import com.couchbase.client.core.error.BucketNotFoundException;
-import com.couchbase.client.java.Bucket;
-import com.couchbase.client.java.Cluster;
-import com.couchbase.client.java.manager.bucket.BucketManager;
-import com.couchbase.client.java.manager.bucket.BucketSettings;
-import com.couchbase.client.java.manager.collection.CollectionManager;
-import com.couchbase.client.java.manager.collection.CollectionSpec;
-import com.couchbase.client.java.manager.collection.ScopeSpec;
-import com.couchbase.client.java.manager.query.QueryIndexManager;
 import org.eclipse.jnosql.communication.Settings;
 import org.eclipse.jnosql.communication.SettingsBuilder;
 import org.eclipse.jnosql.databases.couchbase.communication.*;
 import org.testcontainers.couchbase.BucketDefinition;
 import org.testcontainers.couchbase.CouchbaseContainer;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static com.couchbase.client.java.manager.query.CreatePrimaryQueryIndexOptions.createPrimaryQueryIndexOptions;
-import static com.couchbase.client.java.manager.query.GetAllQueryIndexesOptions.getAllQueryIndexesOptions;
 
 public enum Database {
 
@@ -103,84 +85,11 @@ public enum Database {
 
         settings = configuration.toCouchbaseSettings();
 
-        setUp(settings, bucketDefinition.getName());
+        settings.setUp(bucketDefinition.getName());
     }
 
     public void stop() {
         container.stop();
-    }
-
-    private void setUp(CouchbaseSettings settings, String database) {
-
-        Objects.requireNonNull(database, "database is required");
-
-        var collections = settings.getCollections().stream().map(String::trim)
-                .filter(index -> !index.isBlank()).toList();
-
-        var collectionsToIndex = Arrays
-                .stream(Optional.ofNullable(settings.getIndex()).orElse("").split(","))
-                .map(String::trim)
-                .filter(index -> !index.isBlank()).collect(Collectors.toSet());
-
-        var scope = settings.getScope();
-
-        long start = System.currentTimeMillis();
-        System.out.println("starting the setup with database: " + database);
-
-        try (Cluster cluster = settings.getCluster()) {
-
-            BucketManager buckets = cluster.buckets();
-            try {
-                buckets.getBucket(database);
-            } catch (BucketNotFoundException exp) {
-                System.out.println("The database/bucket does not exist, creating it: " + database);
-                buckets.createBucket(BucketSettings.create(database));
-            }
-
-            Bucket bucket = cluster.bucket(database);
-
-            waitUntilReady(bucket);
-
-            CollectionManager manager = bucket.collections();
-
-            List<ScopeSpec> scopes = manager.getAllScopes();
-            String finalScope = scope.orElseGet(() -> bucket.defaultScope().name());
-            ScopeSpec spec = scopes.stream().filter(s -> finalScope.equals(s.name()))
-                    .findFirst().get();
-
-            collectionsToIndex.forEach(collection -> {
-                if (spec.collections().stream().noneMatch(c -> collectionsToIndex.contains(c.name()))) {
-                    manager.createCollection(CollectionSpec.create(collection, finalScope));
-                }
-            });
-
-            waitUntilReady(bucket);
-
-            if (!collectionsToIndex.isEmpty()) {
-                QueryIndexManager queryIndexManager = cluster.queryIndexes();
-                collections.stream()
-                        .filter(collectionsToIndex::contains)
-                        .forEach(collection -> {
-                            var allIndexes = queryIndexManager.getAllIndexes(database, getAllQueryIndexesOptions()
-                                    .scopeName(finalScope).collectionName(collection));
-                            if (allIndexes.isEmpty()) {
-                                System.out.println("Index for " + collection + " collection does not exist, creating primary key with scope "
-                                        + finalScope + " collection " + collection + " at database " + database);
-                                queryIndexManager.createPrimaryIndex(database, createPrimaryQueryIndexOptions()
-                                        .scopeName(finalScope).collectionName(collection));
-                            }
-                        });
-            }
-
-            long end = System.currentTimeMillis() - start;
-            System.out.println("Finished the setup with database: " + database + " end with millis "
-                    + end);
-        }
-
-    }
-
-    private static void waitUntilReady(Bucket bucket) {
-        bucket.waitUntilReady(Duration.of(4, ChronoUnit.SECONDS));
     }
 
     public CouchbaseDocumentConfiguration getDocumentConfiguration() {
